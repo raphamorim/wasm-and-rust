@@ -61,6 +61,28 @@ In hexadecimal:
 0B
 ```
 
+The WASM compiler system internally uses [s-expressions](https://en.wikipedia.org/wiki/S-expression) - notation for nested list (tree-structured) data, invented for and popularized by the programming language [Lisp](https://en.wikipedia.org/wiki/Lisp_(programming_language)), which uses them for source code as well as data - for parsing simplicity as well to handle intermediate code.
+
+An example is shown below:
+
+```lisp
+(module
+  (type $FUNCSIG$dd (func (param f64) (result f64)))
+  (import "global.Math" "exp" (func $exp (param f64) (result f64)))
+  (memory 256 256)
+  (export "memory" (memory 0))
+  (func $doubleExp (param $0 f64) (result f64)
+    (f64.mul
+      (call $exp
+        (get_local $0)
+      )
+      (f64.const 2)
+    )
+  )
+  (export "doubleExp" (func $doubleExp))
+)
+```
+
 ## Rust Language
 
 Rust is a systems programming language sponsored by Mozilla Research, which describes it as a "safe, concurrent, practical language," supporting functional and imperative-procedural paradigms. Rust is syntactically similar to C++, but its designers intend it to provide better memory safety while maintaining performance.
@@ -73,6 +95,7 @@ Rust is an open source programming language. Its designers have refined the lang
 - https://en.wikipedia.org/wiki/WebAssembly
 - https://en.wikipedia.org/wiki/Rust_(programming_language)
 - https://hoverbear.org/2017/04/06/the-path-to-rust-on-the-web/
+- http://cultureofdevelopment.com/blog/build-your-first-thing-with-web-assembly/
 - https://github.com/mbasso/awesome-wasm
 - https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/
 - https://codelabs.developers.google.com/codelabs/web-assembly-intro/index.html?index=..%2F..%2Findex#0
