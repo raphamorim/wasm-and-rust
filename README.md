@@ -462,6 +462,8 @@ function main() {
 };
 ```
 
+![Example](resources/wasm-rust-called-from-js-chrome.png)
+
 ## References
 
 - https://en.wikipedia.org/wiki/WebAssembly
