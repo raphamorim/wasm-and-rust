@@ -129,6 +129,21 @@ Rust is a systems programming language sponsored by Mozilla Research, which desc
 
 Rust is an open source programming language. Its designers have refined the language through the experiences of writing the Servo web browser layout engine and the Rust compiler.
 
+## Why it right now?
+
+"JavaScript was created in 1995. It wasn’t designed to be fast, and for the first decade, it wasn’t fast.
+
+Then the browsers started getting more competitive.
+
+In 2008, a period that people call the performance wars began. Multiple browsers added just-in-time compilers, also called JITs. As JavaScript was running, the JIT could see patterns and make the code run faster based on those patterns.
+
+The introduction of these JITs led to an inflection point in the performance of JavaScript. Execution of JS was 10x faster.
+
+With this improved performance, JavaScript started being used for things no one ever expected it to be used for, like server-side programming with Node.js. The performance improvement made it feasible to use JavaScript on a whole new class of problems.
+
+We may be at another one of those inflection points now, with WebAssembly."
+
+- Lin Clark, [a-cartoon-intro-to-webassembly](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)
 
 ## References
 
