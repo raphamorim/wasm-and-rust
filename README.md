@@ -312,9 +312,9 @@ Run it to see what happens:
 
 ```shell
 $ cargo run
-   Compiling wasm-demo v0.1.0 (file:///Users/hoverbear/git/rust/wasm-demo)
-    Finished dev [unoptimized + debuginfo] target(s) in 0.89 secs
-     Running `target/debug/wasm-demo`
+   Compiling wasm-rust v0.1.0 (file:///Users/raphael.amorim/Documents/gcom/webassembly-and-rust/examples/wasm-rust)
+   Finished dev [unoptimized + debuginfo] target(s) in 0.66 secs
+   Running `target/debug/wasm-rust`
 South
 false
 ```
