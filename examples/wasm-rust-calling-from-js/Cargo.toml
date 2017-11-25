@@ -1,0 +1,6 @@
+[package]
+name = "wasm-rust-calling-from-js"
+version = "0.1.0"
+authors = ["Raphael Amorim <rapha850@gmail.com>"]
+
+[dependencies]

@@ -1,0 +1,1 @@
+/Users/raphael.amorim/Documents/gcom/webassembly-and-rust/examples/wasm-rust-calling-from-js/target/wasm32-unknown-emscripten/release/wasm_rust_calling_from_js.wasm: /Users/raphael.amorim/Documents/gcom/webassembly-and-rust/examples/wasm-rust-calling-from-js/src/main.rs

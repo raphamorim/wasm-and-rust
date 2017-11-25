@@ -417,6 +417,51 @@ Let’s test our generated code by running `python -m SimpleHTTPServer`, browsin
 
 ![Example Wasm](resources/wasm-rust-chrome.png)
 
+## Wasm and Rust Called from Javascript
+
+[Link to example](examples/wasm-rust-calling-from-js)
+
+**src/main.rs**
+
+```rust
+use std::os::raw::c_char;
+use std::ffi::CString;
+use std::collections::HashMap;
+
+#[no_mangle]
+pub fn get_data() -> *mut c_char {
+    let mut data = HashMap::new();
+    data.insert("Alice", "send");
+    data.insert("Bob", "recieve");
+    data.insert("Carol", "intercept");
+
+    let descriptions = data.iter()
+        .map(|(p,a)| format!("{} likes to {} messages", p, a))
+        .collect::<Vec<_>>();
+
+    CString::new(descriptions.join(", "))
+        .unwrap()
+        .into_raw()
+}
+
+fn main() {
+    // Deliberately blank.
+}
+```
+
+In Client-side:
+
+```javascript
+var Module = {
+  wasmBinaryFile: "site.wasm",
+  onRuntimeInitialized: main,
+};
+function main() {
+  var getData = Module.cwrap('get_data', 'string', []);
+  console.log(getData());
+};
+```
+
 ## References
 
 - https://en.wikipedia.org/wiki/WebAssembly
