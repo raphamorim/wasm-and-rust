@@ -8,6 +8,16 @@
 </p>
 
 
+## Before Start
+
+- Basic knowledge of HTML and JavaScript
+- Enthusiasm for going fast on the web
+- Your favourite browser that supports Web Assembly—we recommend Chrome 57+
+- The Emscripten SDK (`asmjs-unknown-emscripten`, `wasm32-unknown-emscripten`)
+- The sample code, available in the next step
+
+You can check out `about:config` (Firefox) or `chrome://flags/` (Chrome) and make sure `wasm` related things are enabled.
+
 ## WebAssembly (WASM)
 
 WebAssembly or WASM is a low-level bytecode format for in-browser client-side scripting, evolved from JavaScript. Its initial aim is to support compilation from C and C++, though other source languages such as [Rust](https://www.rust-lang.org/en-US/) are also supported.
@@ -123,6 +133,12 @@ An example is shown below:
 )
 ```
 
+#### Emscripten
+
+Emscripten is an LLVM-based project that compiles C and C++ into highly-optimizable JavaScript in asm.js format. This lets you run C and C++ on the web at near-native speed, without plugins.
+
+Thanks to LLVM, Emscripten and asm.js, code runs at near-native speed.
+
 ## Rust Language
 
 Rust is a systems programming language sponsored by Mozilla Research, which describes it as a "safe, concurrent, practical language," supporting functional and imperative-procedural paradigms. Rust is syntactically similar to C++, but its designers intend it to provide better memory safety while maintaining performance.
@@ -220,6 +236,42 @@ We may be at another one of those inflection points now, with WebAssembly.
 
 - Retired from "[A Cartoon Intro To Webassembly, Lin Clark](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)"
 
+## Installing
+
+1. Setup rustp
+
+Rustup is an official Rust project that allows us to install, manage, and update multiple Rust toolchains.
+
+```shell
+curl https://sh.rustup.rs -sSf | sh
+```
+
+After we’ll be prompted to run the following command to update the current shell with the changes:
+
+```shell
+source $HOME/.cargo/env
+```
+
+Add the wasm32-unknown-emscripten compile target via rustup as well:
+
+```shell
+rustup target add wasm32-unknown-emscripten
+```
+
+Set up Emscripten via emsdk. We’ll use the incoming version of Emscripten in order to get the best output.
+
+```shell
+curl https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz | tar -xv -C ~/
+cd ~/emsdk-portable
+./emsdk update
+./emsdk install sdk-incoming-64bit
+./emsdk activate sdk-incoming-64bit
+```
+
+Emscripten is installed.
+
+The last command will instruct us how to add the binaries to our path for permanent usage, or we can just source `./emsdk_env.sh` for temporary fun.
+
 ## References
 
 - https://en.wikipedia.org/wiki/WebAssembly
@@ -233,3 +285,6 @@ We may be at another one of those inflection points now, with WebAssembly.
 - https://internals.rust-lang.org/t/state-of-webassembly-and-rust/6077
 - https://www.rust-lang.org/en-US/
 - https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/
+- https://www.hellorust.com/emscripten/slides/rbr-talk/
+- https://hoverbear.org/2017/03/03/setting-up-a-rust-devenv/#setting-up-rust-via-rustup
+S

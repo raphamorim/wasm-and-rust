@@ -1,5 +1,5 @@
 - [x] wasm
 - [x] wasmjs
-- [ ] rust
-- [ ] simple wasmjs example
+- [x] rust
+- [ ] simple rust-wasm example
 - [ ] future
