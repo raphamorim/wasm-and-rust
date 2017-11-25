@@ -204,6 +204,8 @@ fn main() {
 }
 ```
 
+If're not familiar with almost none of this code. I extremally recommend you to stop few minutes on [Rust by Example](https://rustbyexample.com/hello.html).
+
 ## Why it Right Now?
 
 JavaScript was created in 1995. It wasn’t designed to be fast, and for the first decade, it wasn’t fast. Then the browsers started getting more competitive.
@@ -230,3 +232,4 @@ We may be at another one of those inflection points now, with WebAssembly.
 - https://github.com/mrfr0g/rust-webassembly
 - https://internals.rust-lang.org/t/state-of-webassembly-and-rust/6077
 - https://www.rust-lang.org/en-US/
+- https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/
