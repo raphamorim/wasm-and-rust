@@ -12,9 +12,8 @@
 
 - Basic knowledge of HTML and JavaScript
 - Enthusiasm for going fast on the web
-- Your favourite browser that supports Web Assembly—we recommend Chrome 57+
+- Your favourite browser that supports Web Assembly
 - The Emscripten SDK (`asmjs-unknown-emscripten`, `wasm32-unknown-emscripten`)
-- The sample code, available in the next step
 
 You can check out `about:config` (Firefox) or `chrome://flags/` (Chrome) and make sure `wasm` related things are enabled.
 

@@ -1,0 +1,6 @@
+[package]
+name = "wasm-rust"
+version = "0.1.0"
+authors = ["Raphael Amorim <rapha850@gmail.com>"]
+
+[dependencies]
