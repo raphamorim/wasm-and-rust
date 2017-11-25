@@ -281,6 +281,12 @@ InstalledDir: /Users/raphael.amorim/emsdk-portable/clang/fastcomp/build_incoming
 INFO:root:(Emscripten: Running sanity checks)
 ```
 
+Let’s create the project.
+
+```
+cargo init wasm-demo --bin && rustup override set nightly
+```
+
 Put our first code sample into `src/main.rs`:
 
 ```rust
