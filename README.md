@@ -129,21 +129,94 @@ Rust is a systems programming language sponsored by Mozilla Research, which desc
 
 Rust is an open source programming language. Its designers have refined the language through the experiences of writing the Servo web browser layout engine and the Rust compiler.
 
-## Why it right now?
+Featuring: zero-cost abstractions, move semantics, guaranteed memory safety, threads without data races, trait-based generics, pattern matching, type inference, minimal runtime and efficient C bindings.
 
-"JavaScript was created in 1995. It wasn’t designed to be fast, and for the first decade, it wasn’t fast.
+Some code in Rust:
 
-Then the browsers started getting more competitive.
+```rust
+fn main() {
+    let greetings = ["Hello", "Hola", "Bonjour",
+                     "Ciao", "こんにちは", "안녕하세요",
+                     "Cześć", "Olá", "Здравствуйте",
+                     "Chào bạn", "您好", "Hallo",
+                     "Hej"];
+
+    for (num, greeting) in greetings.iter().enumerate() {
+        print!("{} : ", greeting);
+        match num {
+            0 =>  println!("This code is editable and runnable!"),
+            1 =>  println!("¡Este código es editable y ejecutable!"),
+            2 =>  println!("Ce code est modifiable et exécutable !"),
+            3 =>  println!("Questo codice è modificabile ed eseguibile!"),
+            4 =>  println!("このコードは編集して実行出来ます！"),
+            5 =>  println!("여기에서 코드를 수정하고 실행할 수 있습니다!"),
+            6 =>  println!("Ten kod można edytować oraz uruchomić!"),
+            7 =>  println!("Este código é editável e executável!"),
+            8 =>  println!("Этот код можно отредактировать и запустить!"),
+            9 =>  println!("Bạn có thể edit và run code trực tiếp!"),
+            10 => println!("这段代码是可以编辑并且能够运行的！"),
+            11 => println!("Dieser Code kann bearbeitet und ausgeführt werden!"),
+            12 => println!("Den här koden kan redigeras och köras!"),
+            _ =>  {},
+        }
+    }
+}
+```
+
+Other code written in Rust (example of [Array and Slices](https://rustbyexample.com/primitives/array.html)):
+
+```rust
+use std::mem;
+
+// This function borrows a slice
+fn analyze_slice(slice: &[i32]) {
+    println!("first element of the slice: {}", slice[0]);
+    println!("the slice has {} elements", slice.len());
+}
+
+fn main() {
+    // Fixed-size array (type signature is superfluous)
+    let xs: [i32; 5] = [1, 2, 3, 4, 5];
+
+    // All elements can be initialized to the same value
+    let ys: [i32; 500] = [0; 500];
+
+    // Indexing starts at 0
+    println!("first element of the array: {}", xs[0]);
+    println!("second element of the array: {}", xs[1]);
+
+    // `len` returns the size of the array
+    println!("array size: {}", xs.len());
+
+    // Arrays are stack allocated
+    println!("array occupies {} bytes", mem::size_of_val(&xs));
+
+    // Arrays can be automatically borrowed as slices
+    println!("borrow the whole array as a slice");
+    analyze_slice(&xs);
+
+    // Slices can point to a section of an array
+    println!("borrow a section of the array as a slice");
+    analyze_slice(&ys[1 .. 4]);
+
+    // Out of bound indexing yields a panic
+    println!("{}", xs[5]);
+}
+```
+
+## Why it Right Now?
+
+JavaScript was created in 1995. It wasn’t designed to be fast, and for the first decade, it wasn’t fast. Then the browsers started getting more competitive.
 
 In 2008, a period that people call the performance wars began. Multiple browsers added just-in-time compilers, also called JITs. As JavaScript was running, the JIT could see patterns and make the code run faster based on those patterns.
 
 The introduction of these JITs led to an inflection point in the performance of JavaScript. Execution of JS was 10x faster.
 
-With this improved performance, JavaScript started being used for things no one ever expected it to be used for, like server-side programming with Node.js. The performance improvement made it feasible to use JavaScript on a whole new class of problems.
+With this improved performance, JavaScript started being used for things no one ever expected it to be used for, like server-side programming with Node.js. **The performance improvement made it feasible to use JavaScript on a whole new class of problems**.
 
-We may be at another one of those inflection points now, with WebAssembly."
+We may be at another one of those inflection points now, with WebAssembly.
 
-- Lin Clark, [a-cartoon-intro-to-webassembly](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)
+- Retired from "[A Cartoon Intro To Webassembly, Lin Clark](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)"
 
 ## References
 
@@ -156,3 +229,4 @@ We may be at another one of those inflection points now, with WebAssembly."
 - https://codelabs.developers.google.com/codelabs/web-assembly-intro/index.html?index=..%2F..%2Findex#0
 - https://github.com/mrfr0g/rust-webassembly
 - https://internals.rust-lang.org/t/state-of-webassembly-and-rust/6077
+- https://www.rust-lang.org/en-US/
