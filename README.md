@@ -271,6 +271,146 @@ Emscripten is installed.
 
 The last command will instruct us how to add the binaries to our path for permanent usage, or we can just source `./emsdk_env.sh` for temporary fun.
 
+```shell
+$ emcc -v
+emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 1.37.22
+clang version 4.0.0 (https://github.com/kripken/emscripten-fastcomp-clang.git 3659f873b523e5fc89ffa16baab8901fbd084251) (https://github.com/kripken/emscripten-fastcomp.git de9659961c692174fc4651a6ea0720236e4c4739) (emscripten 1.37.22 : 1.37.22)
+Target: x86_64-apple-darwin17.2.0
+Thread model: posix
+InstalledDir: /Users/raphael.amorim/emsdk-portable/clang/fastcomp/build_incoming_64/bin
+INFO:root:(Emscripten: Running sanity checks)
+```
+
+Put our first code sample into `src/main.rs`:
+
+```rust
+#[derive(Debug)]
+enum Direction { North, South, East, West }
+
+fn is_north(dir: Direction) -> bool {
+    match dir {
+        Direction::North => true,
+        _ => false,
+    }
+}
+
+fn main() {
+    let points = Direction::South;
+    println!("{:?}", points);
+    let compass = is_north(points);
+    println!("{}", compass);
+}
+```
+
+Run it to see what happens:
+
+```shell
+$ cargo run
+   Compiling wasm-demo v0.1.0 (file:///Users/hoverbear/git/rust/wasm-demo)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.89 secs
+     Running `target/debug/wasm-demo`
+South
+false
+```
+
+Let's build for browsers:
+
+```shell
+cargo build --target=wasm32-unknown-emscripten --release
+```
+
+Run `tree` on target folder:
+
+```shell
+$ tree target
+target
+├── debug
+│   ├── build
+│   ├── deps
+│   │   ├── wasm_rust-34c6ef5f29bee9df
+│   │   └── wasm_rust-34c6ef5f29bee9df.dSYM
+│   │       └── Contents
+│   │           ├── Info.plist
+│   │           └── Resources
+│   │               └── DWARF
+│   │                   └── wasm_rust-34c6ef5f29bee9df
+│   ├── examples
+│   ├── incremental
+│   ├── native
+│   ├── wasm-rust
+│   ├── wasm-rust.d
+│   └── wasm-rust.dSYM -> /Users/raphael.amorim/Documents/gcom/webassembly-and-rust/examples/wasm-rust/target/debug/deps/wasm_rust-34c6ef5f29bee9df.dSYM
+├── release
+│   ├── build
+│   ├── deps
+│   ├── examples
+│   ├── incremental
+│   └── native
+└── wasm32-unknown-emscripten
+    └── release
+        ├── build
+        ├── deps
+        │   ├── wasm-rust.js
+        │   └── wasm_rust.wasm
+        ├── examples
+        ├── incremental
+        ├── native
+        ├── wasm-rust.d
+        ├── wasm-rust.js
+        ├── wasm_rust.d
+        └── wasm_rust.wasm
+```
+
+cargo created several files in `target/wasm32-unknown-emscripten/release/deps/` for us. Of primary interest are the `.wasm` and `.js` files.
+
+Why do we get both a `wasm` and a `js`? Wasn’t the whole point of this to not use Javascript? Turns out we need some Javascript glue code to fetch, initialize, and configure it.
+
+Create a `site/index.html` with the following content:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wasm/Rust</title>
+  <script>
+    // This is read and used by `site.js`
+    var Module = {
+      wasmBinaryFile: "site.wasm"
+    }
+  </script>
+  <script src="site.js"></script>
+</head>
+<body></body>
+</html>
+```
+
+Let's automatize it with `Makefile`, set up some way to get the generated files from the `target/` folder into the `site/` folder (* use `tabs`):
+
+```Makefile
+SHELL := /bin/bash
+
+all:
+  cargo build --target=wasm32-unknown-emscripten --release
+  mkdir -p site
+  find target/wasm32-unknown-emscripten/release/deps -type f -name "*.wasm" | xargs -I {} cp {} site/site.wasm
+  find target/wasm32-unknown-emscripten/release/deps -type f ! -name "*.asm.js" -name "*.js" | xargs -I {} cp {} site/site.js
+```
+
+Run `make` and see the tree:
+
+```shell
+$ tree site
+site
+├── index.html
+├── site.js
+└── site.wasm
+```
+
+Let’s test our generated code by running `python -m SimpleHTTPServer`, browsing to `http://localhost:8000/site/`, and opening the browser console.
+
+![Example Wasm](resources/wasm-rust-chrome.png)
+
 ## References
 
 - https://en.wikipedia.org/wiki/WebAssembly

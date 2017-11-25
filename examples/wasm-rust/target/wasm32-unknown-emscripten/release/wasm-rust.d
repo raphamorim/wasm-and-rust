@@ -1,0 +1,1 @@
+/Users/raphael.amorim/Documents/gcom/webassembly-and-rust/examples/wasm-rust/target/wasm32-unknown-emscripten/release/wasm-rust.js: /Users/raphael.amorim/Documents/gcom/webassembly-and-rust/examples/wasm-rust/src/main.rs
