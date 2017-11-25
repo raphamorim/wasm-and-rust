@@ -12,6 +12,46 @@
 
 WebAssembly or WASM is a low-level bytecode format for in-browser client-side scripting, evolved from JavaScript. Its initial aim is to support compilation from C and C++, though other source languages such as [Rust](https://www.rust-lang.org/en-US/) are also supported.
 
+Initial implementation of WebAssembly support in browsers will be based on the featureset of [asm.js](http://asmjs.org/).
+
+The asm.js is an intermediate programming language designed to allow computer software written in languages such as C to be run as web applications while maintaining performance characteristics considerably better than standard JavaScript, the typical language used for such applications. Consists of a strict subset of JavaScript, into which code written in statically-typed languages with manual memory management (such as C) is translated by a source-to-source compiler such as Emscripten (based on LLVM).
+
+Performance is improved by limiting language features to those amenable to ahead-of-time optimization and other performance improvements.
+
+#### Code generation based on asm.js
+
+Calculate the length of a string in C:
+
+```c
+size_t strlen(char *ptr) {
+  char *curr = ptr;
+  while (*curr != 0) {
+    curr++;
+  }
+  return (curr - ptr);
+}
+```
+
+Would output the following JS code:
+
+```js
+function strlen(ptr) {
+  ptr = ptr|0;
+  var curr = 0;
+  curr = ptr;
+  while (MEM8[curr]|0 != 0) {
+    curr = (curr + 1)|0;
+  }
+  return (curr - ptr)|0;
+}
+```
+
+**Note:** Much of performance gain over normal JavaScript is due to 100% type consistency and virtually no garbage collection (memory is manually managed in a large typed array).
+
+In March 2017, the WebAssembly Community Group reached consensus on the initial (MVP) binary format, JavaScript API, and reference interpreter. It defines a WebAssembly binary format.
+
+See the representation of 3 different views of the same source code:
+
 #### C (Input Source)
 
 ```c
