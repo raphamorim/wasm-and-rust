@@ -463,6 +463,10 @@ function main() {
 
 ![Example](resources/wasm-rust-called-from-js-chrome.png)
 
+## Credits
+
+Thanks to [hoverbear](http://hoverbear.org) by examples and Rust/Wasm setup guide.
+
 ## References
 
 - https://en.wikipedia.org/wiki/WebAssembly
