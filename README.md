@@ -259,7 +259,7 @@ rustup target add wasm32-unknown-emscripten
 Set up Emscripten via emsdk. We’ll use the incoming version of Emscripten in order to get the best output.
 
 ```shell
-curl https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz | tar -xv -C ~/
+curl https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz | tar -zxv -C ~/
 cd ~/emsdk-portable
 ./emsdk update
 ./emsdk install sdk-incoming-64bit
