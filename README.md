@@ -381,7 +381,7 @@ Create a `site/index.html` with the following content:
   <script>
     // This is read and used by `site.js`
     var Module = {
-      wasmBinaryFile: "site.wasm"
+      wasmBinaryFile: "wasm_demo.wasm"
     }
   </script>
   <script src="site.js"></script>
@@ -398,7 +398,7 @@ SHELL := /bin/bash
 all:
   cargo build --target=wasm32-unknown-emscripten --release
   mkdir -p site
-  find target/wasm32-unknown-emscripten/release/deps -type f -name "*.wasm" | xargs -I {} cp {} site/site.wasm
+  find target/wasm32-unknown-emscripten/release/deps -type f -name "*.wasm" | xargs -I {} cp {} site/wasm_demo.wasm
   find target/wasm32-unknown-emscripten/release/deps -type f ! -name "*.asm.js" -name "*.js" | xargs -I {} cp {} site/site.js
 ```
 
@@ -409,7 +409,7 @@ $ tree site
 site
 ├── index.html
 ├── site.js
-└── site.wasm
+└── wasm_demo.wasm
 ```
 
 Let’s test our generated code by running `python -m SimpleHTTPServer`, browsing to `http://localhost:8000/site/`, and opening the browser console.
