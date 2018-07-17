@@ -177,7 +177,7 @@ fn main() {
 }
 ```
 
-Other code written in Rust (example of [Array and Slices](https://rustbyexample.com/primitives/array.html)):
+Other code written in Rust (example of [Array and Slices](https://doc.rust-lang.org/stable/rust-by-example/primitives/array.html)):
 
 ```rust
 use std::mem;
@@ -218,7 +218,7 @@ fn main() {
 }
 ```
 
-If're not familiar with almost none of this code. I extremally recommend you to stop few minutes on [Rust by Example](https://rustbyexample.com/hello.html).
+If're not familiar with almost none of this code. I extremally recommend you to stop few minutes on [Rust by Example](https://doc.rust-lang.org/stable/rust-by-example/hello.html).
 
 ## Why it Right Now?
 
