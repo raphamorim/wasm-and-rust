@@ -236,7 +236,7 @@ We may be at another one of those inflection points now, with WebAssembly.
 
 ## Installing
 
-1. Setup rustp
+1. Setup rustup
 
 Rustup is an official Rust project that allows us to install, manage, and update multiple Rust toolchains.
 
